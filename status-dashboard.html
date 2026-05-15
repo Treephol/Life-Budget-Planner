@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Where We Are — May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FAF6EF;
+    --bg-warm: #F3ECDF;
+    --card: #FFFFFF;
+    --ink: #2B2723;
+    --ink-soft: #6B635B;
+    --ink-faint: #9A928A;
+    --gold: #B89968;
+    --gold-deep: #8C6F44;
+    --rose: #C18585;
+    --rose-soft: #EAD2D2;
+    --green: #5A7C5F;
+    --green-soft: #DCE5DC;
+    --terra: #C7825A;
+    --line: #ECE4D6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 56px 40px 80px;
+  }
+  .serif { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -0.01em; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+  header .title {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  header .title strong { color: var(--ink); font-weight: 600; }
+  header .date {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 48px 44px;
+    margin-bottom: 32px;
+    border: 1px solid var(--line);
+  }
+  .hero h1 {
+    font-size: 44px;
+    line-height: 1.15;
+    margin: 18px 0 14px;
+    max-width: 720px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold-deep); }
+  .hero p.lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 620px;
+    line-height: 1.65;
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .stat .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .stat .value {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .stat .value.pos { color: var(--green); }
+  .stat .value.neg { color: var(--terra); }
+  .stat .sub {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+  }
+
+  /* Section */
+  section { margin-bottom: 44px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .section-head h2 {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .section-head .note {
+    font-size: 13px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  /* Marriage card */
+  .marriage {
+    background: linear-gradient(135deg, #FFF8F4 0%, #F9EDE8 100%);
+    border: 1px solid var(--rose-soft);
+    border-radius: 20px;
+    padding: 40px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .marriage::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--rose-soft) 0%, transparent 70%);
+    opacity: 0.6;
+  }
+  .marriage .grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+  }
+  .marriage h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .marriage p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .progress-block {
+    background: rgba(255,255,255,0.7);
+    border-radius: 14px;
+    padding: 24px;
+    border: 1px solid rgba(193, 133, 133, 0.15);
+  }
+  .progress-block .pf-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--rose);
+    font-weight: 600;
+  }
+  .progress-block .pf-target {
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: var(--ink);
+  }
+  .progress-block .pf-current {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .bar {
+    background: var(--rose-soft);
+    height: 8px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .bar-fill {
+    background: var(--rose);
+    height: 100%;
+    width: 0%;
+    border-radius: 100px;
+    transition: width 1s ease;
+  }
+  .bar-caption {
+    font-size: 12px;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Two-column projection */
+  .projection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .year-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 32px;
+    position: relative;
+  }
+  .year-card .year-tag {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    color: var(--gold-deep);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .year-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 22px;
+  }
+  .year-card .metric-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .year-card .metric-row:first-of-type { border-top: 0; }
+  .year-card .metric-row .k { color: var(--ink-soft); }
+  .year-card .metric-row .v {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 16px;
+  }
+  .year-card .metric-row .v.pos { color: var(--green); }
+  .year-card.highlight { background: linear-gradient(180deg, #FFFCF6 0%, #FFFFFF 100%); border-color: var(--gold); }
+
+  /* Milestones timeline */
+  .timeline {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 40px;
+  }
+  .milestone {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 28px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .milestone:last-child { border-bottom: 0; padding-bottom: 0; }
+  .milestone:first-child { padding-top: 0; }
+  .milestone .when {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    color: var(--gold-deep);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding-top: 2px;
+  }
+  .milestone .when .small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .milestone .what h5 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .milestone .what p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .milestone.glow .what h5::after {
+    content: ' ✦';
+    color: var(--gold);
+  }
+
+  /* Chart */
+  .chart-wrap {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 32px;
+  }
+  .chart-canvas {
+    position: relative;
+    height: 320px;
+  }
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 100px; }
+
+  /* Investment Progress */
+  .progress-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 36px;
+  }
+  .progress-item {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .progress-item:first-child { border-top: 0; padding-top: 2px; }
+  .progress-item:last-child { padding-bottom: 2px; }
+  .progress-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 4px;
+  }
+  .progress-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .progress-pct {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gold-deep);
+    white-space: nowrap;
+  }
+  .progress-desc {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    line-height: 1.55;
+  }
+  .progress-track {
+    background: var(--bg-warm);
+    height: 8px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+  .progress-fill {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+    height: 100%;
+    width: 0;
+    border-radius: 100px;
+    transition: width 1.2s ease;
+  }
+  .progress-fill.rose {
+    background: linear-gradient(90deg, var(--rose-soft) 0%, var(--rose) 100%);
+  }
+  .progress-item.marriage-item .progress-pct { color: var(--rose); }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--ink-faint);
+  }
+  .progress-meta .paid {
+    color: var(--green);
+    font-weight: 500;
+  }
+  .progress-meta .paid.rose { color: var(--rose); }
+
+  /* Monthly tables */
+  .month-table-wrap {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 0 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .month-table-head {
+    padding: 0 36px 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--line);
+  }
+  .month-table-head .serif {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    text-transform: none;
+    margin-right: 4px;
+  }
+  .month-scroll {
+    overflow-x: auto;
+    padding: 0 36px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .month-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 8px;
+    min-width: 920px;
+  }
+  .month-table th,
+  .month-table td {
+    padding: 6px 6px;
+    text-align: right;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--line);
+  }
+  .month-table th {
+    font-weight: 500;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    padding-bottom: 10px;
+  }
+  .month-table th.cat-col,
+  .month-table td.cat-col {
+    text-align: left;
+    min-width: 200px;
+    max-width: 240px;
+    padding-left: 0;
+    font-family: 'Fraunces', serif;
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .month-table th.cat-col {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--ink-faint);
+  }
+  .month-table th.total-col,
+  .month-table td.total-col {
+    color: var(--ink);
+    font-weight: 500;
+    background: rgba(184, 153, 104, 0.04);
+    padding-right: 4px;
+    padding-left: 12px;
+  }
+  .month-table td.zero {
+    color: var(--ink-faint);
+    opacity: 0.5;
+  }
+  .month-table td.neg {
+    color: var(--terra);
+  }
+  .month-table tr.sec-row td {
+    padding: 14px 0 6px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    text-align: left;
+    background: transparent;
+  }
+  .month-table tr.sec-row.income-sec td { color: var(--green); border-bottom-color: var(--green); }
+  .month-table tr.sec-row.exp-sec td { color: var(--gold-deep); border-bottom-color: var(--gold-deep); }
+  .month-table tr.sub-row td {
+    padding: 12px 0 4px;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--ink-faint);
+    text-align: left;
+    background: transparent;
+    border-bottom: 1px solid var(--line);
+  }
+  .month-table tr.total-row td {
+    font-weight: 600;
+    color: var(--ink);
+    border-top: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: rgba(184, 153, 104, 0.04);
+  }
+  .month-table tr.total-row td.cat-col {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .month-table tr:hover td:not(.cat-col) {
+    background: rgba(184, 153, 104, 0.04);
+  }
+
+  /* Ledger */
+  .ledger-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 40px;
+    margin-bottom: 16px;
+  }
+  .ledger-card.income { background: linear-gradient(180deg, #FAFDF7 0%, #FFFFFF 100%); border-color: var(--green-soft); }
+  .ledger-card.people { background: linear-gradient(180deg, #FFFAF7 0%, #FFFFFF 100%); border-color: var(--rose-soft); }
+  .ledger-card .group-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .ledger-card .group-sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+  .ledger-head, .ledger-row, .ledger-total {
+    display: grid;
+    grid-template-columns: 1fr 110px 110px;
+    gap: 20px;
+  }
+  .ledger-head {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+  }
+  .ledger-head .amt-h { text-align: right; }
+  .ledger-row {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .ledger-row:first-of-type { border-top: 0; padding-top: 12px; }
+  .ledger-row .name {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .ledger-row .desc {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .ledger-row .amt {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  .ledger-row .amt.muted { color: var(--ink-faint); font-weight: 400; }
+  .ledger-row .amt.neg { color: var(--terra); }
+  .ledger-total {
+    padding-top: 16px;
+    margin-top: 6px;
+    border-top: 2px solid var(--ink);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .ledger-total .t-amt {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: right;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  /* Share of total */
+  .share-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 32px 36px;
+    margin-bottom: 20px;
+  }
+  .share-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 18px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    gap: 16px;
+  }
+  .share-year .serif {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .share-total {
+    font-size: 12px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .share-total strong {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 4px;
+  }
+  .share-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 90px 60px;
+    gap: 14px;
+    align-items: center;
+    padding: 9px 0;
+    border-top: 1px solid var(--line);
+  }
+  .share-row:first-of-type { border-top: 0; }
+  .share-name {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .share-bar {
+    background: var(--bg-warm);
+    height: 8px;
+    border-radius: 100px;
+    overflow: hidden;
+    position: relative;
+  }
+  .share-fill {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+    height: 100%;
+    width: 0;
+    border-radius: 100px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .share-fill.neg {
+    background: linear-gradient(90deg, var(--terra) 0%, #A8643F 100%);
+  }
+  .share-amt {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .share-pct {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gold-deep);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .share-row:has(.share-fill.neg) .share-pct,
+  .share-row:has(.share-fill.neg) .share-amt {
+    color: var(--terra);
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+  footer .heart { color: var(--rose); }
+
+  @media (max-width: 720px) {
+    .page { padding: 32px 20px; }
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 30px; }
+    .stat-row { grid-template-columns: 1fr; gap: 18px; }
+    .marriage { padding: 28px 22px; }
+    .marriage .grid { grid-template-columns: 1fr; gap: 24px; }
+    .projection-grid { grid-template-columns: 1fr; }
+    .timeline { padding: 24px 22px; }
+    .milestone { grid-template-columns: 1fr; gap: 6px; }
+    header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .progress-card, .ledger-card, .share-card { padding: 22px 20px; }
+    .share-row {
+      grid-template-columns: 120px 1fr 70px 50px;
+      gap: 10px;
+      padding: 8px 0;
+    }
+    .share-name { font-size: 12.5px; }
+    .share-amt, .share-pct { font-size: 12.5px; }
+    .share-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .progress-head { flex-direction: column; gap: 4px; align-items: flex-start; }
+    .ledger-head, .ledger-row, .ledger-total {
+      grid-template-columns: 1fr 85px 85px;
+      gap: 12px;
+    }
+    .ledger-row .amt, .ledger-total .t-amt { font-size: 14px; }
+    .ledger-card .group-title { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="title"><strong>Where We Are</strong> &nbsp;·&nbsp; a little update for you</div>
+    <div class="date">As of 15 May 2026</div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">The short version</div>
+    <h1 class="serif">Where we are now — and what we're <em>building toward</em>.</h1>
+    <p class="lede">Two real things on our plate over the next twenty months. The first — shrinking our four loans, month by month, with The Unique condo already nearly a third paid off. The second — the Marriage Fund, starting October at ฿40K a month and reaching ฿600K by the end of 2027. Quiet, automatic, ours.</p>
+    <p class="lede" style="margin-top: 14px;">And in between, we've kept room for life. ฿253K for travel in 2026, ฿150K in 2027 — plus restaurants, movies, the long weekends. The numbers aren't tight; they're carefully balanced so the goals can move forward and the days can still feel good.</p>
+    <p class="lede" style="margin-top: 14px;">Just below, each loan we're paying down — and how far along we are. The Marriage Fund is tracked separately, as a savings goal of its own.</p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="label">Net worth right now</div>
+        <div class="value serif">฿4.85<span style="font-size:18px;color:var(--ink-faint);">M</span></div>
+        <div class="sub">Properties + Investments + Other + Cash</div>
+      </div>
+      <div class="stat">
+        <div class="label">This month's savings</div>
+        <div class="value pos serif">+฿216,210</div>
+        <div class="sub">Income ฿459K · Spend ฿243K</div>
+      </div>
+      <div class="stat">
+        <div class="label">Months until balance is positive</div>
+        <div class="value serif">3</div>
+        <div class="sub">August 2026 — the turning point</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVESTMENT PROGRESS -->
+  <section>
+    <div class="section-head">
+      <h2 class="serif">What we're paying off</h2>
+      <span class="note">each loan, how far along</span>
+    </div>
+    <div class="progress-card">
+
+      <div class="progress-item">
+        <div class="progress-head">
+          <div class="progress-name">The Unique 62/1</div>
+          <div class="progress-pct">27.7%</div>
+        </div>
+        <div class="progress-desc">Our biggest property — the Bangkok condo we've been paying since late 2017. Nine years in, nearly a third of the loan is behind us.</div>
+        <div class="progress-track"><div class="progress-fill" data-pct="27.7"></div></div>
+        <div class="progress-meta">
+          <span class="paid">฿874K paid down</span>
+          <span>฿2.29M to go &nbsp;·&nbsp; of ฿3.16M total</span>
+        </div>
+      </div>
+
+      <div class="progress-item">
+        <div class="progress-head">
+          <div class="progress-name">RHYTHM Asoke</div>
+          <div class="progress-pct">15.3%</div>
+        </div>
+        <div class="progress-desc">The Asoke condo, refinanced through Thai Credit Bank in late 2022. Steady ฿10.6K every month — quiet but consistent progress.</div>
+        <div class="progress-track"><div class="progress-fill" data-pct="15.3"></div></div>
+        <div class="progress-meta">
+          <span class="paid">฿248K paid down</span>
+          <span>฿1.37M to go &nbsp;·&nbsp; of ฿1.62M total</span>
+        </div>
+      </div>
+
+      <div class="progress-item">
+        <div class="progress-head">
+          <div class="progress-name">The Base Cherngtalay</div>
+          <div class="progress-pct">10.1%</div>
+        </div>
+        <div class="progress-desc">The new Phuket property — still in down payment phase, with the final installment in June. The actual mortgage begins in August, and the rental income starts the very same month.</div>
+        <div class="progress-track"><div class="progress-fill" data-pct="10.1"></div></div>
+        <div class="progress-meta">
+          <span class="paid">฿296K invested so far</span>
+          <span>฿2.64M to go &nbsp;·&nbsp; of ฿2.93M total</span>
+        </div>
+      </div>
+
+      <div class="progress-item">
+        <div class="progress-head">
+          <div class="progress-name">Cash (Thai Credit)</div>
+          <div class="progress-pct">4.5%</div>
+        </div>
+        <div class="progress-desc">The personal cash loan, taken in late 2022. Slow for now because most of the payment goes to interest — but the monthly payment jumps from ฿11.5K to ฿40K in October, and it falls much faster from there.</div>
+        <div class="progress-track"><div class="progress-fill" data-pct="4.5"></div></div>
+        <div class="progress-meta">
+          <span class="paid">฿63K paid down</span>
+          <span>฿1.32M to go &nbsp;·&nbsp; of ฿1.38M total</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTIONS -->
+  <section>
+    <div class="section-head">
+      <h2 class="serif">Where we land</h2>
+      <span class="note">by the end of each year</span>
+    </div>
+    <div class="projection-grid">
+      <div class="year-card">
+        <div class="year-tag">By December</div>
+        <h4>2026</h4>
+        <div class="metric-row"><span class="k">Net worth</span><span class="v">฿5.89M</span></div>
+        <div class="metric-row"><span class="k">Cash position</span><span class="v pos">+฿159,939</span></div>
+        <div class="metric-row"><span class="k">Net saved this year</span><span class="v pos">+฿712,439</span></div>
+        <div class="metric-row"><span class="k">Marriage Fund (cumulative)</span><span class="v">฿120,000</span></div>
+      </div>
+      <div class="year-card highlight">
+        <div class="year-tag">By December</div>
+        <h4>2027</h4>
+        <div class="metric-row"><span class="k">Net worth</span><span class="v">฿6.89M</span></div>
+        <div class="metric-row"><span class="k">Cash position</span><span class="v pos">+฿592,816</span></div>
+        <div class="metric-row"><span class="k">Net saved this year</span><span class="v pos">+฿442,816</span></div>
+        <div class="metric-row"><span class="k">Marriage Fund (cumulative)</span><span class="v">฿600,000</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHART -->
+  <section>
+    <div class="section-head">
+      <h2 class="serif">The shape of the next 20 months</h2>
+      <span class="note">monthly cash balance</span>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-canvas"><canvas id="balanceChart"></canvas></div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--gold)"></span> Cash balance through the year</span>
+        <span><span class="dot" style="background:var(--rose)"></span> Marriage Fund (cumulative)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHARE OF TOTAL -->
+  <section>
+    <div class="section-head">
+      <h2 class="serif">Where the money goes</h2>
+      <span class="note">Interest + Misc Variable &mdash; excluding loan payments, annual fixed costs, and Game</span>
+    </div>
+
+    <div class="share-card">
+      <div class="share-head">
+        <div class="share-year"><span class="serif">2026</span></div>
+        <div class="share-total">Interest + Misc Variable subtotal &middot; <strong>฿1,319K</strong></div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Travel</div>
+        <div class="share-bar"><div class="share-fill" data-w="100.0"></div></div>
+        <div class="share-amt">฿253K</div>
+        <div class="share-pct">19.2%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Bills & Utilities</div>
+        <div class="share-bar"><div class="share-fill" data-w="83.9"></div></div>
+        <div class="share-amt">฿212K</div>
+        <div class="share-pct">16.1%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Mary Jane</div>
+        <div class="share-bar"><div class="share-fill" data-w="53.3"></div></div>
+        <div class="share-amt">฿135K</div>
+        <div class="share-pct">10.2%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Marriage Fund</div>
+        <div class="share-bar"><div class="share-fill" data-w="47.4"></div></div>
+        <div class="share-amt">฿120K</div>
+        <div class="share-pct">9.1%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Family</div>
+        <div class="share-bar"><div class="share-fill" data-w="41.1"></div></div>
+        <div class="share-amt">฿104K</div>
+        <div class="share-pct">7.9%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Variable Others</div>
+        <div class="share-bar"><div class="share-fill" data-w="39.3"></div></div>
+        <div class="share-amt">฿100K</div>
+        <div class="share-pct">7.6%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Food & Beverage</div>
+        <div class="share-bar"><div class="share-fill" data-w="31.4"></div></div>
+        <div class="share-amt">฿80K</div>
+        <div class="share-pct">6.0%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Restaurants</div>
+        <div class="share-bar"><div class="share-fill" data-w="28.0"></div></div>
+        <div class="share-amt">฿71K</div>
+        <div class="share-pct">5.4%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Gift</div>
+        <div class="share-bar"><div class="share-fill" data-w="23.7"></div></div>
+        <div class="share-amt">฿60K</div>
+        <div class="share-pct">4.5%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Petrol</div>
+        <div class="share-bar"><div class="share-fill" data-w="21.7"></div></div>
+        <div class="share-amt">฿55K</div>
+        <div class="share-pct">4.2%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Doctor</div>
+        <div class="share-bar"><div class="share-fill" data-w="16.3"></div></div>
+        <div class="share-amt">฿41K</div>
+        <div class="share-pct">3.1%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Entertainment</div>
+        <div class="share-bar"><div class="share-fill" data-w="13.1"></div></div>
+        <div class="share-amt">฿33K</div>
+        <div class="share-pct">2.5%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Interest</div>
+        <div class="share-bar"><div class="share-fill" data-w="11.4"></div></div>
+        <div class="share-amt">฿29K</div>
+        <div class="share-pct">2.2%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Business</div>
+        <div class="share-bar"><div class="share-fill" data-w="5.6"></div></div>
+        <div class="share-amt">฿14K</div>
+        <div class="share-pct">1.1%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Shopping</div>
+        <div class="share-bar"><div class="share-fill" data-w="1.4"></div></div>
+        <div class="share-amt">฿3K</div>
+        <div class="share-pct">0.3%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Transportation</div>
+        <div class="share-bar"><div class="share-fill" data-w="1.2"></div></div>
+        <div class="share-amt">฿3K</div>
+        <div class="share-pct">0.2%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Movies</div>
+        <div class="share-bar"><div class="share-fill" data-w="1.1"></div></div>
+        <div class="share-amt">฿3K</div>
+        <div class="share-pct">0.2%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Parking Fees</div>
+        <div class="share-bar"><div class="share-fill" data-w="0.9"></div></div>
+        <div class="share-amt">฿2K</div>
+        <div class="share-pct">0.2%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Personal Care</div>
+        <div class="share-bar"><div class="share-fill" data-w="0.2"></div></div>
+        <div class="share-amt">฿500</div>
+        <div class="share-pct"><0.1%</div>
+      </div>
+    </div>
+
+    <div class="share-card">
+      <div class="share-head">
+        <div class="share-year"><span class="serif">2027</span></div>
+        <div class="share-total">Interest + Misc Variable subtotal &middot; <strong>฿1,350K</strong></div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Marriage Fund</div>
+        <div class="share-bar"><div class="share-fill" data-w="100.0"></div></div>
+        <div class="share-amt">฿480K</div>
+        <div class="share-pct">35.6%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Bills & Utilities</div>
+        <div class="share-bar"><div class="share-fill" data-w="43.8"></div></div>
+        <div class="share-amt">฿210K</div>
+        <div class="share-pct">15.6%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Travel</div>
+        <div class="share-bar"><div class="share-fill" data-w="31.2"></div></div>
+        <div class="share-amt">฿150K</div>
+        <div class="share-pct">11.1%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Mary Jane</div>
+        <div class="share-bar"><div class="share-fill" data-w="25.0"></div></div>
+        <div class="share-amt">฿120K</div>
+        <div class="share-pct">8.9%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Family</div>
+        <div class="share-bar"><div class="share-fill" data-w="18.8"></div></div>
+        <div class="share-amt">฿90K</div>
+        <div class="share-pct">6.7%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Gift</div>
+        <div class="share-bar"><div class="share-fill" data-w="18.8"></div></div>
+        <div class="share-amt">฿90K</div>
+        <div class="share-pct">6.7%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Food & Beverage</div>
+        <div class="share-bar"><div class="share-fill" data-w="12.5"></div></div>
+        <div class="share-amt">฿60K</div>
+        <div class="share-pct">4.4%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Petrol</div>
+        <div class="share-bar"><div class="share-fill" data-w="12.5"></div></div>
+        <div class="share-amt">฿60K</div>
+        <div class="share-pct">4.4%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Restaurants</div>
+        <div class="share-bar"><div class="share-fill" data-w="12.5"></div></div>
+        <div class="share-amt">฿60K</div>
+        <div class="share-pct">4.4%</div>
+      </div>
+      <div class="share-row">
+        <div class="share-name">Entertainment</div>
+        <div class="share-bar"><div class="share-fill" data-w="6.2"></div></div>
+        <div class="share-amt">฿30K</div>
+        <div class="share-pct">2.2%</div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    Numbers pulled from the 2026 and 2027 tabs of the Budget Planner<br>
+    Made with care <span class="heart">♡</span> &nbsp;·&nbsp; will update as the months tick by
+  </footer>
+
+</div>
+
+<script>
+  // Animate marriage fund bar (always 0% for now — first contribution in October)
+  setTimeout(() => {
+    document.getElementById('marriageBar').style.width = '0%';
+  }, 200);
+
+  // Animate investment progress bars
+  setTimeout(() => {
+    document.querySelectorAll('.progress-fill').forEach(el => {
+      el.style.width = el.dataset.pct + '%';
+    });
+  }, 300);
+
+  // Animate share bars (staggered)
+  setTimeout(() => {
+    document.querySelectorAll('.share-fill').forEach((el, i) => {
+      setTimeout(() => {
+        el.style.width = el.dataset.w + '%';
+      }, i * 25);
+    });
+  }, 400);
+
+  // Cash balance + cumulative Marriage Fund through Dec 2027
+  const labels = [
+    'Jan 26','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',
+    'Jan 27','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
+  ];
+  // End-of-month cash balance for each month label (matches the year-end card)
+  const balance = [
+    -307000, -522750, -780999, -725000, -508790, -273487, 40816, 64324, 139705, 148589, 159617, 159939,
+    165758, 162412, 173242, 190118, 209996, 253085, 299611, 349813, 403950, 462296, 525146, 592816
+  ];
+  // Cumulative marriage fund: 0 through Sep 2026, then +40K per month
+  const marriageFund = (() => {
+    const arr = [];
+    let total = 0;
+    // Jan-Sep 2026 (indices 0-8) = 0
+    for (let i = 0; i < 9; i++) arr.push(0);
+    // Oct, Nov, Dec 2026 (9, 10, 11)
+    for (let i = 9; i < 12; i++) { total += 40000; arr.push(total); }
+    // 12 months of 2027
+    for (let i = 12; i < 24; i++) { total += 40000; arr.push(total); }
+    return arr;
+  })();
+
+  const ctx = document.getElementById('balanceChart').getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 0, 320);
+  grad.addColorStop(0, 'rgba(184, 153, 104, 0.22)');
+  grad.addColorStop(1, 'rgba(184, 153, 104, 0)');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Cash balance',
+          data: balance,
+          borderColor: '#B89968',
+          backgroundColor: grad,
+          fill: true,
+          tension: 0.35,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#B89968',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+        },
+        {
+          label: 'Marriage Fund',
+          data: marriageFund,
+          borderColor: '#C18585',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [4, 4],
+          tension: 0.2,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#C18585',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#2B2723',
+          titleFont: { family: 'Inter', size: 11, weight: '500' },
+          bodyFont: { family: 'Inter', size: 12 },
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: true,
+          callbacks: {
+            label: (c) => `  ${c.dataset.label}: ฿${c.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 0})}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: { color: '#9A928A', font: { family: 'Inter', size: 11 } }
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: {
+            color: '#9A928A',
+            font: { family: 'Inter', size: 11 },
+            callback: (v) => '฿' + (v/1000).toFixed(0) + 'K'
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
