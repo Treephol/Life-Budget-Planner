@@ -342,6 +342,43 @@
   }
   .dot { width: 10px; height: 10px; border-radius: 100px; }
 
+  /* Bucket breakdown (Where the money goes) */
+  .bucket-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .bucket-col {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 18px 12px;
+  }
+  .bucket-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid;
+    padding-bottom: 9px;
+    margin-bottom: 4px;
+  }
+  .bucket-name { font-weight: 600; font-size: 13px; letter-spacing: 0.01em; }
+  .bucket-total { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; }
+  .bucket-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--bg-warm);
+  }
+  .bucket-row:last-child { border-bottom: 0; }
+  .bucket-row span:first-child { color: var(--ink-soft); }
+  .bucket-row.minor span { color: var(--ink-faint); font-style: italic; }
+  @media (max-width: 720px) {
+    .bucket-grid { grid-template-columns: 1fr; }
+  }
+
   /* Investment Progress */
   .progress-card {
     background: var(--card);
@@ -536,6 +573,103 @@
     background: rgba(184, 153, 104, 0.04);
   }
 
+  /* Year-by-year comparison table */
+  .year-compare-wrap {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 0 28px;
+    overflow: hidden;
+  }
+  .year-compare-scroll {
+    overflow-x: auto;
+    padding: 0 36px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .year-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 620px;
+  }
+  .year-table th,
+  .year-table td {
+    padding: 10px 8px;
+    text-align: right;
+    font-size: 13px;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--line);
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .year-table thead th {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    padding-bottom: 14px;
+    border-bottom: 1.5px solid var(--line);
+  }
+  .year-table th.cat-col,
+  .year-table td.cat-col {
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--ink);
+    padding-left: 0;
+    min-width: 200px;
+  }
+  .year-table thead th.cat-col {
+    font-weight: 500;
+    color: var(--ink-faint);
+  }
+  .year-table th.emphasis-col,
+  .year-table td.emphasis-col {
+    background: rgba(184, 153, 104, 0.06);
+  }
+  .year-table thead th.emphasis-col {
+    color: var(--gold-deep);
+  }
+  .year-table td.zero {
+    color: var(--ink-faint);
+    opacity: 0.35;
+    font-style: italic;
+  }
+  .year-table td.pos { color: var(--green); }
+  .year-table td.neg { color: var(--terra); }
+  .year-table tr.sec-row td {
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 22px 0 8px;
+    background: transparent;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .year-table tr.sec-row:first-child td { padding-top: 6px; }
+  .year-table tr.sec-row .sec-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink-faint);
+    margin-left: 6px;
+    font-size: 12px;
+  }
+  .year-table tbody tr:hover td:not(.cat-col) {
+    background: rgba(184, 153, 104, 0.04);
+  }
+  .year-table tbody tr:hover td.emphasis-col {
+    background: rgba(184, 153, 104, 0.10);
+  }
+
   /* Ledger */
   .ledger-card {
     background: var(--card);
@@ -718,6 +852,80 @@
     color: var(--terra);
   }
 
+  /* Category groups within share-card */
+  .share-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin: 22px 0 4px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--gold);
+  }
+  .share-group:first-of-type { margin-top: 8px; }
+  .share-group-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--gold-deep);
+    letter-spacing: -0.01em;
+  }
+  .share-group-total {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .share-group-total span {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink-faint);
+    margin-left: 5px;
+  }
+  .share-group.mj { border-bottom-color: var(--rose); }
+  .share-group.mj .share-group-name { color: var(--rose); }
+  .share-group.mj + .share-row .share-fill,
+  .share-card .share-fill.mj {
+    background: linear-gradient(90deg, var(--rose-soft) 0%, var(--rose) 100%);
+  }
+
+  /* Dual variant (YTD | % | Forecast | %) for the current year */
+  .share-card.dual .share-colhead {
+    display: grid;
+    grid-template-columns: 1fr 74px 52px 74px 52px;
+    gap: 12px;
+    align-items: baseline;
+    padding: 0 0 8px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--line);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .share-card.dual .share-colhead .num { text-align: right; }
+  .share-card.dual .share-colhead .fc-h { color: var(--gold-deep); font-weight: 600; }
+  .share-card.dual .share-row {
+    grid-template-columns: 1fr 74px 52px 74px 52px;
+  }
+  .share-card.dual .share-amt.ytd { color: var(--ink-soft); font-weight: 400; }
+  .share-card.dual .share-amt.fc { color: var(--ink); font-weight: 600; }
+  .share-card.dual .share-pct.ytd-p { color: var(--ink-faint); font-weight: 400; }
+  .share-card.dual .share-pct.fc-p { color: var(--gold-deep); font-weight: 500; }
+  .share-card.dual .share-group-total .ytd-t { color: var(--ink-faint); font-weight: 400; }
+  .share-card.dual .share-group-total .sep { color: var(--ink-faint); font-weight: 400; margin: 0 3px; }
+  @media (max-width: 720px) {
+    .share-card.dual .share-colhead,
+    .share-card.dual .share-row {
+      grid-template-columns: 1fr 56px 42px 56px 42px;
+      gap: 7px;
+    }
+    .share-card.dual .share-name { font-size: 12px; }
+    .share-card.dual .share-amt, .share-card.dual .share-pct { font-size: 11.5px; }
+  }
+
   /* Footer */
   footer {
     margin-top: 56px;
@@ -765,7 +973,7 @@
 
   <header>
     <div class="title"><strong>Where We Are</strong> &nbsp;·&nbsp; a little update for you</div>
-    <div class="date">As of 15 May 2026</div>
+    <div class="date">As of 31 May 2026</div>
   </header>
 
   <!-- HERO -->
@@ -784,13 +992,13 @@
       </div>
       <div class="stat">
         <div class="label">This month's savings</div>
-        <div class="value pos serif">+฿216,210</div>
-        <div class="sub">Income ฿459K · Spend ฿243K</div>
+        <div class="value pos serif">+฿83,500</div>
+        <div class="sub">Income ฿433K · Spend ฿350K</div>
       </div>
       <div class="stat">
         <div class="label">Months until balance is positive</div>
-        <div class="value serif">3</div>
-        <div class="sub">August 2026 — the turning point</div>
+        <div class="value serif">8</div>
+        <div class="sub">January 2027 — the turning point</div>
       </div>
     </div>
   </div>
@@ -855,6 +1063,19 @@
         </div>
       </div>
 
+      <div class="progress-item marriage-item">
+        <div class="progress-head">
+          <div class="progress-name">Marriage Fund</div>
+          <div class="progress-pct">0.0%</div>
+        </div>
+        <div class="progress-desc">Not a loan — a savings goal of its own. ฿40K every month, beginning October 2026, growing to ฿600K by the end of 2027. Quiet, automatic, ours.</div>
+        <div class="progress-track"><div class="progress-fill rose" data-pct="0"></div></div>
+        <div class="progress-meta">
+          <span class="paid rose">฿0 saved so far</span>
+          <span>฿600K to go &nbsp;·&nbsp; starts October 2026</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -868,9 +1089,9 @@
       <div class="year-card">
         <div class="year-tag">By December</div>
         <h4>2026</h4>
-        <div class="metric-row"><span class="k">Net worth</span><span class="v">฿5.89M</span></div>
-        <div class="metric-row"><span class="k">Cash position</span><span class="v pos">+฿159,939</span></div>
-        <div class="metric-row"><span class="k">Net saved this year</span><span class="v pos">+฿712,439</span></div>
+        <div class="metric-row"><span class="k">Net worth</span><span class="v">฿5.73M</span></div>
+        <div class="metric-row"><span class="k">Cash position</span><span class="v" style="color:var(--terra)">−฿2,149</span></div>
+        <div class="metric-row"><span class="k">Net saved this year</span><span class="v pos">+฿550,351</span></div>
         <div class="metric-row"><span class="k">Marriage Fund (cumulative)</span><span class="v">฿120,000</span></div>
       </div>
       <div class="year-card highlight">
@@ -887,217 +1108,118 @@
   <!-- CHART -->
   <section>
     <div class="section-head">
-      <h2 class="serif">The shape of the next 20 months</h2>
-      <span class="note">monthly cash balance</span>
+      <h2 class="serif">The shape of the journey</h2>
+      <span class="note">cash, investments &amp; the Marriage Fund &middot; Jul 2024 — Dec 2027</span>
     </div>
     <div class="chart-wrap">
       <div class="chart-canvas"><canvas id="balanceChart"></canvas></div>
       <div class="legend">
-        <span><span class="dot" style="background:var(--gold)"></span> Cash balance through the year</span>
+        <span><span class="dot" style="background:var(--green)"></span> Investment: All (TCG &amp; portfolio)</span>
+        <span><span class="dot" style="background:var(--gold)"></span> Cash balance</span>
         <span><span class="dot" style="background:var(--rose)"></span> Marriage Fund (cumulative)</span>
       </div>
+      <p style="font-size:13px; color:var(--ink-soft); margin-top:18px; line-height:1.7; max-width:760px; font-style:italic;">The cash line dips because debt is being <em>exchanged</em> — not lost. Each baht of negative cash is going into the TCG / JRPG investment portfolio (the green line), which climbs from ฿550K in mid-2024 to roughly ฿1.83M by the end of 2027. The two lines together describe the real position: cash temporarily down, equity steadily up.</p>
     </div>
   </section>
 
-  <!-- SHARE OF TOTAL -->
+  <!-- 10-YEAR ASSET / DEBT PROJECTION -->
+  <section>
+    <div class="section-head">
+      <h2 class="serif">The longer arc</h2>
+      <span class="note">asset-to-debt ratio &middot; 2017 actual — 2036 projected</span>
+    </div>
+
+    <p class="lede" style="font-size:15px; max-width:780px; margin-bottom:24px;">Here's the ten-year view, built from the Assets &amp; Debt tab. What we own has compounded about <strong>15.4% a year</strong> since 2017. What we owe is now coming <em>down</em>: assuming no new property, the existing loans amortize on their current schedule — the high-interest Cash (Thai Credit) loan clears around 2031, and the rest chip down steadily. Holding both forward, assets pass debt <em>around 2028–29</em> — and from there the gap widens fast.</p>
+
+    <div class="chart-wrap">
+      <div class="chart-canvas"><canvas id="ratioChart"></canvas></div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--gold-deep)"></span> Asset-to-debt ratio (actual)</span>
+        <span><span class="dot" style="background:var(--gold)"></span> Projected (assets +15.4%/yr &middot; debt amortizing)</span>
+        <span><span class="dot" style="background:var(--green)"></span> Parity — assets = debt (1.0)</span>
+      </div>
+      <p style="font-size:13px; color:var(--ink-soft); margin-top:18px; line-height:1.7; max-width:780px; font-style:italic;">Below 1.0, debt still outweighs assets; above it, the balance has tipped in our favour. The ratio climbed from <strong>0.23 in 2017</strong> to <strong>0.80 in 2023</strong>, then dipped in 2024–25 when The Base Cherngtalay added a new mortgage. From today's <strong>0.62</strong> it crosses <strong>1.0 around 2028–29</strong> and keeps climbing as the loans are repaid — reaching roughly <strong>6× by 2036</strong>, with assets near ฿19.9M against debt paid down to about ฿3.3M.</p>
+    </div>
+
+    <div class="projection-grid" style="margin-top:24px;">
+      <div class="year-card">
+        <div class="year-tag">Where we stand</div>
+        <h4>2026 — today</h4>
+        <div class="metric-row"><span class="k">Asset-to-debt ratio</span><span class="v">0.62</span></div>
+        <div class="metric-row"><span class="k">Total assets</span><span class="v">฿4.78M</span></div>
+        <div class="metric-row"><span class="k">Total debt</span><span class="v" style="color:var(--terra)">฿7.68M</span></div>
+      </div>
+      <div class="year-card highlight">
+        <div class="year-tag">The crossover</div>
+        <h4>≈ 2028–29</h4>
+        <div class="metric-row"><span class="k">Asset-to-debt ratio</span><span class="v pos">1.0</span></div>
+        <div class="metric-row"><span class="k">Assets reach</span><span class="v">≈ ฿6.4M</span></div>
+        <div class="metric-row"><span class="k">Debt down to</span><span class="v">≈ ฿6.6M</span></div>
+      </div>
+    </div>
+
+    <p style="font-size:12.5px; color:var(--ink-faint); margin-top:16px; font-style:italic; line-height:1.6; max-width:820px;">How this is built: assets grow at their 2017–2026 compound rate (+15.4%/yr). Debt is amortized loan-by-loan from the 2026 outstanding balances and your scheduled payments — RHYTHM Asoke, Cash (Thai Credit), The Unique 62/1 and The Base Cherngtalay — assuming no new property is purchased. A guide to the shape of things, not a guarantee: a new loan, a property sale, or slower portfolio growth would all shift the curve.</p>
+  </section>
+
+  <!-- WHERE THE MONEY GOES -->
   <section>
     <div class="section-head">
       <h2 class="serif">Where the money goes</h2>
-      <span class="note">Interest + Misc Variable &mdash; excluding loan payments, annual fixed costs, and Game</span>
+      <span class="note">three buckets &middot; trend 2025–2027, detail for 2026</span>
     </div>
 
-    <div class="share-card">
-      <div class="share-head">
-        <div class="share-year"><span class="serif">2026</span></div>
-        <div class="share-total">Interest + Misc Variable subtotal &middot; <strong>฿1,319K</strong></div>
+    <div class="chart-wrap">
+      <div class="legend" style="margin-top:0; margin-bottom:18px;">
+        <span><span class="dot" style="background:var(--gold)"></span> Common Use</span>
+        <span><span class="dot" style="background:var(--green)"></span> Treephol</span>
+        <span><span class="dot" style="background:var(--rose)"></span> Mary Jane</span>
       </div>
-      <div class="share-row">
-        <div class="share-name">Travel</div>
-        <div class="share-bar"><div class="share-fill" data-w="100.0"></div></div>
-        <div class="share-amt">฿253K</div>
-        <div class="share-pct">19.2%</div>
+      <div class="chart-canvas" style="height:260px;"><canvas id="bucketChart"></canvas></div>
+    </div>
+
+    <div class="bucket-grid">
+      <div class="bucket-col">
+        <div class="bucket-head" style="border-color:var(--gold);">
+          <span class="bucket-name">Common Use</span>
+          <span class="bucket-total" style="color:var(--gold-deep);">฿796K</span>
+        </div>
+        <div class="bucket-row"><span>Travel</span><span>฿253K</span></div>
+        <div class="bucket-row"><span>Bills &amp; Utilities</span><span>฿215K</span></div>
+        <div class="bucket-row"><span>Family</span><span>฿111K</span></div>
+        <div class="bucket-row"><span>Variable Others</span><span>฿108K</span></div>
+        <div class="bucket-row"><span>Restaurants</span><span>฿75K</span></div>
+        <div class="bucket-row"><span>Entertainment</span><span>฿33K</span></div>
       </div>
-      <div class="share-row">
-        <div class="share-name">Bills & Utilities</div>
-        <div class="share-bar"><div class="share-fill" data-w="83.9"></div></div>
-        <div class="share-amt">฿212K</div>
-        <div class="share-pct">16.1%</div>
+
+      <div class="bucket-col">
+        <div class="bucket-head" style="border-color:var(--green);">
+          <span class="bucket-name">Treephol</span>
+          <span class="bucket-total" style="color:var(--green);">฿254K</span>
+        </div>
+        <div class="bucket-row"><span>Food &amp; Beverage</span><span>฿84K</span></div>
+        <div class="bucket-row"><span>Petrol</span><span>฿54K</span></div>
+        <div class="bucket-row"><span>Doctor</span><span>฿41K</span></div>
+        <div class="bucket-row"><span>Interest</span><span>฿40K</span></div>
+        <div class="bucket-row"><span>Business</span><span>฿20K</span></div>
+        <div class="bucket-row minor"><span>+ 5 smaller</span><span>฿15K</span></div>
       </div>
-      <div class="share-row">
-        <div class="share-name">Mary Jane</div>
-        <div class="share-bar"><div class="share-fill" data-w="53.3"></div></div>
-        <div class="share-amt">฿135K</div>
-        <div class="share-pct">10.2%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Marriage Fund</div>
-        <div class="share-bar"><div class="share-fill" data-w="47.4"></div></div>
-        <div class="share-amt">฿120K</div>
-        <div class="share-pct">9.1%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Family</div>
-        <div class="share-bar"><div class="share-fill" data-w="41.1"></div></div>
-        <div class="share-amt">฿104K</div>
-        <div class="share-pct">7.9%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Variable Others</div>
-        <div class="share-bar"><div class="share-fill" data-w="39.3"></div></div>
-        <div class="share-amt">฿100K</div>
-        <div class="share-pct">7.6%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Food & Beverage</div>
-        <div class="share-bar"><div class="share-fill" data-w="31.4"></div></div>
-        <div class="share-amt">฿80K</div>
-        <div class="share-pct">6.0%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Restaurants</div>
-        <div class="share-bar"><div class="share-fill" data-w="28.0"></div></div>
-        <div class="share-amt">฿71K</div>
-        <div class="share-pct">5.4%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Gift</div>
-        <div class="share-bar"><div class="share-fill" data-w="23.7"></div></div>
-        <div class="share-amt">฿60K</div>
-        <div class="share-pct">4.5%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Petrol</div>
-        <div class="share-bar"><div class="share-fill" data-w="21.7"></div></div>
-        <div class="share-amt">฿55K</div>
-        <div class="share-pct">4.2%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Doctor</div>
-        <div class="share-bar"><div class="share-fill" data-w="16.3"></div></div>
-        <div class="share-amt">฿41K</div>
-        <div class="share-pct">3.1%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Entertainment</div>
-        <div class="share-bar"><div class="share-fill" data-w="13.1"></div></div>
-        <div class="share-amt">฿33K</div>
-        <div class="share-pct">2.5%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Interest</div>
-        <div class="share-bar"><div class="share-fill" data-w="11.4"></div></div>
-        <div class="share-amt">฿29K</div>
-        <div class="share-pct">2.2%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Business</div>
-        <div class="share-bar"><div class="share-fill" data-w="5.6"></div></div>
-        <div class="share-amt">฿14K</div>
-        <div class="share-pct">1.1%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Shopping</div>
-        <div class="share-bar"><div class="share-fill" data-w="1.4"></div></div>
-        <div class="share-amt">฿3K</div>
-        <div class="share-pct">0.3%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Transportation</div>
-        <div class="share-bar"><div class="share-fill" data-w="1.2"></div></div>
-        <div class="share-amt">฿3K</div>
-        <div class="share-pct">0.2%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Movies</div>
-        <div class="share-bar"><div class="share-fill" data-w="1.1"></div></div>
-        <div class="share-amt">฿3K</div>
-        <div class="share-pct">0.2%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Parking Fees</div>
-        <div class="share-bar"><div class="share-fill" data-w="0.9"></div></div>
-        <div class="share-amt">฿2K</div>
-        <div class="share-pct">0.2%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Personal Care</div>
-        <div class="share-bar"><div class="share-fill" data-w="0.2"></div></div>
-        <div class="share-amt">฿500</div>
-        <div class="share-pct"><0.1%</div>
+
+      <div class="bucket-col">
+        <div class="bucket-head" style="border-color:var(--rose);">
+          <span class="bucket-name">Mary Jane</span>
+          <span class="bucket-total" style="color:var(--rose);">฿315K</span>
+        </div>
+        <div class="bucket-row"><span>Mary Jane</span><span>฿135K</span></div>
+        <div class="bucket-row"><span>Marriage Fund</span><span>฿120K</span></div>
+        <div class="bucket-row"><span>Gift</span><span>฿60K</span></div>
       </div>
     </div>
 
-    <div class="share-card">
-      <div class="share-head">
-        <div class="share-year"><span class="serif">2027</span></div>
-        <div class="share-total">Interest + Misc Variable subtotal &middot; <strong>฿1,350K</strong></div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Marriage Fund</div>
-        <div class="share-bar"><div class="share-fill" data-w="100.0"></div></div>
-        <div class="share-amt">฿480K</div>
-        <div class="share-pct">35.6%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Bills & Utilities</div>
-        <div class="share-bar"><div class="share-fill" data-w="43.8"></div></div>
-        <div class="share-amt">฿210K</div>
-        <div class="share-pct">15.6%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Travel</div>
-        <div class="share-bar"><div class="share-fill" data-w="31.2"></div></div>
-        <div class="share-amt">฿150K</div>
-        <div class="share-pct">11.1%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Mary Jane</div>
-        <div class="share-bar"><div class="share-fill" data-w="25.0"></div></div>
-        <div class="share-amt">฿120K</div>
-        <div class="share-pct">8.9%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Family</div>
-        <div class="share-bar"><div class="share-fill" data-w="18.8"></div></div>
-        <div class="share-amt">฿90K</div>
-        <div class="share-pct">6.7%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Gift</div>
-        <div class="share-bar"><div class="share-fill" data-w="18.8"></div></div>
-        <div class="share-amt">฿90K</div>
-        <div class="share-pct">6.7%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Food & Beverage</div>
-        <div class="share-bar"><div class="share-fill" data-w="12.5"></div></div>
-        <div class="share-amt">฿60K</div>
-        <div class="share-pct">4.4%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Petrol</div>
-        <div class="share-bar"><div class="share-fill" data-w="12.5"></div></div>
-        <div class="share-amt">฿60K</div>
-        <div class="share-pct">4.4%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Restaurants</div>
-        <div class="share-bar"><div class="share-fill" data-w="12.5"></div></div>
-        <div class="share-amt">฿60K</div>
-        <div class="share-pct">4.4%</div>
-      </div>
-      <div class="share-row">
-        <div class="share-name">Entertainment</div>
-        <div class="share-bar"><div class="share-fill" data-w="6.2"></div></div>
-        <div class="share-amt">฿30K</div>
-        <div class="share-pct">2.2%</div>
-      </div>
-    </div>
-
+    <p style="font-size:12.5px; color:var(--ink-faint); margin-top:16px; font-style:italic; line-height:1.6; max-width:820px;">The bars show how the mix shifts across the three years — Common Use easing as one-off travel settles, while Mary Jane climbs as the Marriage Fund and gifts ramp up. Columns break down the 2026 forecast (Interest + Misc Variable, ฿1,365K total).</p>
   </section>
 
   <footer>
-    Numbers pulled from the 2026 and 2027 tabs of the Budget Planner<br>
+    Numbers pulled from the 2024 (Jul–Dec only), 2025, 2026, and 2027 tabs of the Budget Planner<br>
     Made with care <span class="heart">♡</span> &nbsp;·&nbsp; will update as the months tick by
   </footer>
 
@@ -1125,28 +1247,54 @@
     });
   }, 400);
 
-  // Cash balance + cumulative Marriage Fund through Dec 2027
+  // Cash balance + cumulative Marriage Fund — Jul 2024 through Dec 2027
+  // 2024 H1 (Jan–Jun) omitted: first-half data was unreliable.
   const labels = [
+    'Jul 24','Aug','Sep','Oct','Nov','Dec',
+    'Jan 25','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',
     'Jan 26','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',
     'Jan 27','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
   ];
-  // End-of-month cash balance for each month label (matches the year-end card)
+  // End-of-month cash balance for each month label (from Budget Planner)
   const balance = [
-    -307000, -522750, -780999, -725000, -508790, -273487, 40816, 64324, 139705, 148589, 159617, 159939,
-    165758, 162412, 173242, 190118, 209996, 253085, 299611, 349813, 403950, 462296, 525146, 592816
+    // 2024 H2 only (Jul–Dec actuals)
+    -190000, -225000, -170701, -210560, -245518, -260000,
+    // 2025 (actuals)
+    -91500, -89500, -99001, -172326, -255000, -312849, -364500, -255000, -332172, -223364, -275000, -400000,
+    // 2026 (Jan–May actuals, Jun–Dec plan)
+    -552500, -307000, -522750, -781000, -725000, -641500, -455886, -121272, -97764, -22383, -13499, -2471,
+    // 2027 (plan)
+    150000, 165758, 162412, 173242, 190118, 209996, 253085, 299611, 349813, 403950, 462296, 525146
   ];
   // Cumulative marriage fund: 0 through Sep 2026, then +40K per month
   const marriageFund = (() => {
     const arr = [];
     let total = 0;
-    // Jan-Sep 2026 (indices 0-8) = 0
-    for (let i = 0; i < 9; i++) arr.push(0);
-    // Oct, Nov, Dec 2026 (9, 10, 11)
-    for (let i = 9; i < 12; i++) { total += 40000; arr.push(total); }
-    // 12 months of 2027
-    for (let i = 12; i < 24; i++) { total += 40000; arr.push(total); }
+    // Jul–Dec 2024 (indices 0-5) = 0
+    for (let i = 0; i < 6; i++) arr.push(0);
+    // All 12 months of 2025 (indices 6-17) = 0
+    for (let i = 6; i < 18; i++) arr.push(0);
+    // Jan-Sep 2026 (indices 18-26) = 0
+    for (let i = 18; i < 27; i++) arr.push(0);
+    // Oct, Nov, Dec 2026 (27, 28, 29)
+    for (let i = 27; i < 30; i++) { total += 40000; arr.push(total); }
+    // 12 months of 2027 (30-41)
+    for (let i = 30; i < 42; i++) { total += 40000; arr.push(total); }
     return arr;
   })();
+
+  // Investment: All — end-of-month portfolio value from the Investment tab
+  // Period 57 = Jul 2024 ... Period 98 = Dec 2027 (42 points)
+  const investments = [
+    // 2024 H2
+    550000, 550000, 550000, 550000, 800000, 800000,
+    // 2025
+    784500, 795000, 796000, 800500, 800500, 799250, 787000, 758250, 766000, 826750, 836750, 925750,
+    // 2026
+    1159750, 1347500, 1496325, 1852250, 1666250, 1674250, 1682250, 1690250, 1698250, 1706250, 1714250, 1722250,
+    // 2027
+    1730250, 1738250, 1746250, 1754250, 1762250, 1770250, 1778250, 1786250, 1794250, 1802250, 1810250, 1818250
+  ];
 
   const ctx = document.getElementById('balanceChart').getContext('2d');
   const grad = ctx.createLinearGradient(0, 0, 0, 320);
@@ -1158,6 +1306,19 @@
     data: {
       labels: labels,
       datasets: [
+        {
+          label: 'Investment: All',
+          data: investments,
+          borderColor: '#5A7C5F',
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          tension: 0.3,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#5A7C5F',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+        },
         {
           label: 'Cash balance',
           data: balance,
@@ -1198,11 +1359,30 @@
           backgroundColor: '#2B2723',
           titleFont: { family: 'Inter', size: 11, weight: '500' },
           bodyFont: { family: 'Inter', size: 12 },
+          footerFont: { family: 'Inter', size: 11, weight: '600', style: 'normal' },
+          footerColor: '#E8DDC8',
+          footerMarginTop: 8,
           padding: 12,
           cornerRadius: 8,
           displayColors: true,
           callbacks: {
-            label: (c) => `  ${c.dataset.label}: ฿${c.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 0})}`
+            label: (c) => `  ${c.dataset.label}: ฿${c.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 0})}`,
+            footer: (items) => {
+              if (!items || !items.length) return '';
+              const idx = items[0].dataIndex;
+              const datasets = items[0].chart.data.datasets;
+              const inv = datasets[0].data[idx];
+              const cash = datasets[1].data[idx];
+              if (!inv) return '';
+              const ratio = (cash / inv) * 100;
+              const sign = cash < 0 ? '−' : '+';
+              const ratioTxt = `${sign}${Math.abs(ratio).toFixed(1)}%`;
+              if (cash < 0) {
+                const cov = Math.abs(inv / cash).toFixed(1);
+                return `Cash : Investment  ${ratioTxt}  ·  ${cov}× covered`;
+              }
+              return `Cash : Investment  ${ratioTxt}`;
+            }
           }
         }
       },
@@ -1217,6 +1397,172 @@
             color: '#9A928A',
             font: { family: 'Inter', size: 11 },
             callback: (v) => '฿' + (v/1000).toFixed(0) + 'K'
+          }
+        }
+      }
+    }
+  });
+
+  // ── 10-year Asset-to-Debt ratio ──────────────────────────────
+  // Year-end Total Assets / Total Debt from the Assets & Debt tab.
+  // 2017–2026 actual. 2027–2036 projected: assets at the 2017–26 CAGR
+  // (+15.35%/yr); debt amortized loan-by-loan from 2026 balances and
+  // scheduled payments, assuming no new property.
+  const rYears = ['2017','2018','2019','2020','2021','2022','2023','2024','2025','2026',
+                  '2027','2028','2029','2030','2031','2032','2033','2034','2035','2036'];
+  // Underlying figures (฿M) — used in the tooltip
+  const rAssets = [1.32,2.15,2.12,2.50,3.95,4.55,4.41,4.14,4.40,4.78,
+                   5.51,6.36,7.34,8.46,9.76,11.26,12.99,14.98,17.28,19.93];
+  const rDebt   = [5.82,6.24,5.79,5.43,6.06,5.92,5.50,5.41,8.01,7.68,
+                   7.08,6.56,5.97,5.31,4.93,4.63,4.31,3.98,3.63,3.26];
+  // Actual ratio: 2017–2026 then null
+  const ratioActual = [0.227,0.345,0.366,0.461,0.651,0.768,0.802,0.764,0.550,0.622,
+                       null,null,null,null,null,null,null,null,null,null];
+  // Projected ratio: nulls, then 2026 (to join) and 2027–2036
+  const ratioProj = [null,null,null,null,null,null,null,null,null,0.622,
+                     0.778,0.970,1.229,1.594,1.980,2.432,3.011,3.764,4.763,6.121];
+  // Parity reference line at 1.0
+  const parity = rYears.map(() => 1.0);
+
+  const rctx = document.getElementById('ratioChart').getContext('2d');
+  new Chart(rctx, {
+    type: 'line',
+    data: {
+      labels: rYears,
+      datasets: [
+        {
+          label: 'Parity (1:1)',
+          data: parity,
+          borderColor: 'rgba(90,124,95,0.55)',
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          borderDash: [3, 4],
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          tension: 0,
+          order: 3,
+        },
+        {
+          label: 'Ratio (actual)',
+          data: ratioActual,
+          borderColor: '#8C6F44',
+          backgroundColor: 'transparent',
+          borderWidth: 2.6,
+          tension: 0.25,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#8C6F44',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+          order: 1,
+        },
+        {
+          label: 'Ratio (projected)',
+          data: ratioProj,
+          borderColor: '#B89968',
+          backgroundColor: 'transparent',
+          borderWidth: 2.4,
+          borderDash: [5, 4],
+          tension: 0.25,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#B89968',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+          order: 2,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#2B2723',
+          titleFont: { family: 'Inter', size: 11, weight: '500' },
+          bodyFont: { family: 'Inter', size: 12 },
+          footerFont: { family: 'Inter', size: 11, weight: '600' },
+          footerColor: '#E8DDC8',
+          footerMarginTop: 8,
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: false,
+          filter: (item) => item.datasetIndex !== 0 && item.parsed.y !== null,
+          callbacks: {
+            label: (c) => {
+              const yr = c.dataIndex;
+              const tag = yr >= 10 ? ' (projected)' : '';
+              return `  Ratio: ${c.parsed.y.toFixed(2)}${tag}`;
+            },
+            footer: (items) => {
+              if (!items || !items.length) return '';
+              const i = items[0].dataIndex;
+              return `Assets ฿${rAssets[i].toFixed(2)}M  ·  Debt ฿${rDebt[i].toFixed(2)}M`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: { color: '#9A928A', font: { family: 'Inter', size: 10 }, maxRotation: 0, autoSkip: true }
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          suggestedMin: 0,
+          suggestedMax: 6.5,
+          ticks: {
+            color: '#9A928A',
+            font: { family: 'Inter', size: 11 },
+            callback: (v) => v.toFixed(1) + '×'
+          }
+        }
+      }
+    }
+  });
+
+  // ── Where the money goes — three buckets, 2025–2027 ──────────
+  // Interest + Misc Variable, grouped into Common Use / Treephol / Mary Jane (฿K)
+  const bctx = document.getElementById('bucketChart').getContext('2d');
+  new Chart(bctx, {
+    type: 'bar',
+    data: {
+      labels: ['2025', '2026', '2027'],
+      datasets: [
+        { label: 'Common Use', data: [929, 796, 540], backgroundColor: '#B89968', borderRadius: 4, maxBarThickness: 46 },
+        { label: 'Treephol',   data: [315, 254, 120], backgroundColor: '#5A7C5F', borderRadius: 4, maxBarThickness: 46 },
+        { label: 'Mary Jane',  data: [201, 315, 690], backgroundColor: '#C18585', borderRadius: 4, maxBarThickness: 46 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#2B2723',
+          titleFont: { family: 'Inter', size: 11, weight: '500' },
+          bodyFont: { family: 'Inter', size: 12 },
+          padding: 12,
+          cornerRadius: 8,
+          callbacks: {
+            label: (c) => `  ${c.dataset.label}: ฿${c.parsed.y}K`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: '#6B635B', font: { family: 'Inter', size: 13 } }
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: {
+            color: '#9A928A',
+            font: { family: 'Inter', size: 11 },
+            callback: (v) => '฿' + v + 'K'
           }
         }
       }
